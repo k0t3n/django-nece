@@ -4,7 +4,6 @@ from django.db import models
 from django.db.models.expressions import RawSQL
 from django.db.models.query import ModelIterable
 
-
 TRANSLATIONS_DEFAULT = getattr(settings, 'TRANSLATIONS_DEFAULT', 'en_us')
 TRANSLATIONS_MAP = getattr(settings, 'TRANSLATIONS_MAP', {'en': 'en_us'})
 TRANSLATIONS_FALLBACK = getattr(settings, 'TRANSLATIONS_FALLBACK', {})  # TODO: check it's a list
@@ -13,7 +12,6 @@ if any(not isinstance(val, list) for val in TRANSLATIONS_FALLBACK.values()):
 
 
 class TranslationMixin(object):
-
     _default_language_code = TRANSLATIONS_DEFAULT
 
     def get_language_key(self, language_code):
@@ -101,8 +99,8 @@ class TranslationQuerySet(models.QuerySet, TranslationMixin):
             MyModel.objects.language('en_us').filter(is_active=True).order_by_json_path('title')
         """
         language_code = (language_code
-                            or self._language_code
-                            or self.get_language_key(language_code))
+                         or self._language_code
+                         or self.get_language_key(language_code))
         json_path = '{%s,%s}' % (language_code, json_path)
         # Our jsonb field is named `translations`.
         raw_sql_expression = RawSQL("translations#>>%s", (json_path,))

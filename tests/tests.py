@@ -8,7 +8,6 @@ from django.test import TestCase
 
 from nece import managers
 from nece.exceptions import NonTranslatableFieldError
-
 from .fixtures import create_fixtures
 from .models import Fruit
 
@@ -93,7 +92,7 @@ class TranslationTest(TestCase):
         fruit = Fruit.objects.get(name='apple')
         with self.assertRaises(NonTranslatableFieldError) as error:
             fruit.translate('it_it', dummy_field='hello')
-        self.assertEqual(error.exception.fieldname, 'dummy_field')
+        self.assertEqual(error.exception.field_name, 'dummy_field')
 
     def test_translation_mapping(self):
         self.assertTrue(Fruit.objects.language('tr').exists())
@@ -215,4 +214,3 @@ class TranslationOrderingTest(TestCase):
             'name', language_code='tr_tr', order='desc')
         for i, fruit in enumerate(fruits):
             self.assertEqual(fruit.name, expected_order[i])
-

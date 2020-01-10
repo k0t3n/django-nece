@@ -5,9 +5,8 @@ from django.contrib.postgres.fields import JSONField
 from django.db import models
 from django.db.models import options
 
-from nece.managers import TranslationManager, TranslationMixin
 from nece.exceptions import NonTranslatableFieldError
-
+from nece.managers import TranslationManager, TranslationMixin
 
 options.DEFAULT_NAMES += ('translatable_fields',)
 
@@ -27,7 +26,7 @@ class TranslationModel(models.Model, TranslationMixin):
 
     def __init__(self, *args, **kwargs):
         self._language_code = self._default_language_code
-        return super(TranslationModel, self).__init__(*args, **kwargs)
+        super(TranslationModel, self).__init__(*args, **kwargs)
 
     def __getattribute__(self, name):
         attr = object.__getattribute__(self, name)

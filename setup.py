@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from setuptools import setup
 
-
 with open('README.rst', 'rb') as f:
     ld = f.read().decode('utf8')
 
@@ -9,7 +8,7 @@ long_description = ld.replace(ld[0:ld.find('nece?')], '')
 
 version = '0.8.0'
 description = "A content translation framework using Postgresql's jsonb" + \
-    " field in the background"
+              " field in the background"
 url = 'https://github.com/tatterdemalion/django-nece'
 download_url = '/'.join([url, 'tarball', version])
 
